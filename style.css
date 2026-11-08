@@ -1,0 +1,523 @@
+/* ===== RESET E BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    background: #000;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== SISTEMA DE TELAS ===== */
+.tela {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.8s ease, visibility 1.8s ease;
+    z-index: 0;
+}
+
+.tela.ativa {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+}
+
+/* ============================================
+   TELA 1 — ABERTURA
+   ============================================ */
+#tela1 {
+    background: radial-gradient(ellipse at center, #0a0008 0%, #000 70%);
+}
+
+.conteudo-central {
+    text-align: center;
+    z-index: 2;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Coração animado */
+.coracao-animado {
+    font-size: 3rem;
+    animation: pulsar 1.5s ease-in-out infinite, fadeIn 1.5s ease forwards;
+    opacity: 0;
+    filter: drop-shadow(0 0 20px rgba(255, 40, 80, 0.5));
+}
+
+/* Título principal */
+.titulo-principal {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.2rem, 8vw, 4.5rem);
+    color: #fff;
+    text-shadow: 0 0 40px rgba(255, 77, 109, 0.25);
+    animation: fadeInDown 2s ease 0.5s forwards;
+    opacity: 0;
+    line-height: 1.4;
+    padding: 0 10px;
+}
+
+/* Botão mágico */
+.btn-magico {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.95rem, 3.8vw, 1.25rem);
+    font-weight: 400;
+    color: #fff;
+    background: linear-gradient(135deg, #ff4d6d 0%, #c9184a 100%);
+    border: none;
+    padding: 16px 42px;
+    border-radius: 50px;
+    cursor: pointer;
+    animation: fadeInUp 2s ease 1.5s forwards, brilho 2.5s ease-in-out infinite 3.5s;
+    opacity: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    letter-spacing: 0.5px;
+    -webkit-user-select: none;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+    margin-top: 25px;
+}
+
+.btn-magico::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.08) 50%,
+        transparent 70%
+    );
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+.btn-magico:active {
+    transform: scale(0.96);
+}
+
+/* Partículas de fundo */
+.particulas-fundo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.particula {
+    position: absolute;
+    background: radial-gradient(circle, rgba(255, 77, 109, 0.7), transparent);
+    border-radius: 50%;
+    animation: particula-subir linear infinite;
+    pointer-events: none;
+}
+
+/* ============================================
+   TELA 2 — NOSSA HISTÓRIA
+   ============================================ */
+#tela2 {
+    background: linear-gradient(160deg, #0a0a0a 0%, #1a0a12 40%, #0d0510 100%);
+    overflow: hidden;
+}
+
+/* Container de fotos flutuantes */
+.fotos-flutuantes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.foto-flutuante {
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+    object-fit: cover;
+    opacity: 0;
+    will-change: transform, opacity;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+}
+
+/* Card glassmorphism */
+.glass-card {
+    position: relative;
+    z-index: 5;
+    background: rgba(8, 8, 8, 0.78);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 77, 109, 0.15);
+    border-radius: 24px;
+    padding: 35px 28px;
+    max-width: 520px;
+    width: 88%;
+    max-height: 78vh;
+    overflow-y: auto;
+    text-align: center;
+    box-shadow:
+        0 8px 40px rgba(0, 0, 0, 0.5),
+        0 0 80px rgba(255, 77, 109, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    animation: cardEntrada 1.5s ease 0.5s forwards;
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+/* Scrollbar estilizada */
+.glass-card::-webkit-scrollbar {
+    width: 3px;
+}
+
+.glass-card::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.glass-card::-webkit-scrollbar-thumb {
+    background: rgba(255, 77, 109, 0.25);
+    border-radius: 3px;
+}
+
+/* Mensagem de amor */
+.mensagem-amor {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.88rem, 3.2vw, 1.1rem);
+    color: rgba(255, 255, 255, 0.88);
+    line-height: 1.85;
+    font-weight: 300;
+    margin-bottom: 25px;
+}
+
+.mensagem-amor strong {
+    color: #ff4d6d;
+    font-weight: 600;
+}
+
+.assinatura {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(1.6rem, 5.5vw, 2.4rem);
+    color: #ff4d6d;
+    display: block;
+    margin-top: 8px;
+    filter: drop-shadow(0 0 10px rgba(255, 77, 109, 0.3));
+}
+
+/* Botão surpresa */
+.btn-surpresa {
+    margin-top: 8px;
+    font-size: clamp(0.82rem, 3vw, 1.05rem);
+    padding: 14px 32px;
+    animation-delay: 1.8s, 4s;
+}
+
+/* ============================================
+   TELA 3 — GRANDE FINAL
+   ============================================ */
+#tela3 {
+    background: #000;
+    overflow: hidden;
+}
+
+#fireworks-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.texto-final {
+    z-index: 5;
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.3);
+    padding: 20px;
+    pointer-events: none;
+}
+
+.texto-final.visivel {
+    animation: teAmoEntrada 2.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.te-amo {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(4rem, 16vw, 9rem);
+    color: #fff;
+    text-shadow:
+        0 0 20px rgba(255, 77, 109, 0.9),
+        0 0 50px rgba(255, 77, 109, 0.5),
+        0 0 100px rgba(255, 77, 109, 0.3),
+        0 0 150px rgba(255, 40, 80, 0.15);
+    line-height: 1.2;
+}
+
+.subtitulo-final {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.1rem, 4vw, 1.7rem);
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 12px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px rgba(255, 77, 109, 0.3);
+}
+
+.anos-juntos {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.75rem, 2.8vw, 1rem);
+    color: rgba(255, 255, 255, 0.45);
+    margin-top: 18px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    animation: fadeIn 2s ease 3s forwards;
+    opacity: 0;
+}
+
+/* ============================================
+   ANIMAÇÕES
+   ============================================ */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-35px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulsar {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.2); }
+}
+
+@keyframes brilho {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(255, 77, 109, 0.3);
+    }
+    50% {
+        box-shadow:
+            0 0 25px rgba(255, 77, 109, 0.6),
+            0 0 55px rgba(255, 77, 109, 0.2);
+    }
+}
+
+@keyframes shimmer {
+    0%   { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+@keyframes cardEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes teAmoEntrada {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    60% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes flutuar {
+    0% {
+        transform: translateY(110vh) translateX(0px) rotate(var(--rot-inicio));
+        opacity: 0;
+    }
+    6% {
+        opacity: var(--opacidade);
+    }
+    88% {
+        opacity: var(--opacidade);
+    }
+    100% {
+        transform: translateY(-35vh) translateX(var(--desloc-x)) rotate(var(--rot-fim));
+        opacity: 0;
+    }
+}
+
+@keyframes particula-subir {
+    0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+    }
+    15% { opacity: 0.8; }
+    85% { opacity: 0.6; }
+    100% {
+        transform: translateY(-10vh) scale(1);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   RESPONSIVO — iPhone 12 (390px) e 15 Pro Max (430px)
+   ============================================ */
+
+/* iPhone 12 / 13 / 14 — 390×844 */
+@media screen and (max-width: 400px) {
+    .titulo-principal {
+        font-size: 2rem;
+        padding: 0 15px;
+    }
+
+    .coracao-animado {
+        font-size: 2.5rem;
+    }
+
+    .btn-magico {
+        padding: 14px 36px;
+        font-size: 0.95rem;
+    }
+
+    .glass-card {
+        padding: 28px 22px;
+        max-height: 72vh;
+        width: 90%;
+        border-radius: 20px;
+    }
+
+    .mensagem-amor {
+        font-size: 0.88rem;
+        line-height: 1.75;
+    }
+
+    .assinatura {
+        font-size: 1.5rem;
+    }
+
+    .btn-surpresa {
+        padding: 13px 28px;
+        font-size: 0.82rem;
+    }
+
+    .te-amo {
+        font-size: 3.8rem;
+    }
+
+    .subtitulo-final {
+        font-size: 1.05rem;
+    }
+
+    .anos-juntos {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+    }
+
+    .foto-flutuante {
+        border-radius: 8px;
+    }
+}
+
+/* iPhone 15 Pro Max — 430×932 */
+@media screen and (min-width: 401px) and (max-width: 440px) {
+    .titulo-principal {
+        font-size: 2.3rem;
+    }
+
+    .glass-card {
+        padding: 32px 25px;
+        max-height: 74vh;
+        width: 88%;
+    }
+
+    .mensagem-amor {
+        font-size: 0.92rem;
+    }
+
+    .te-amo {
+        font-size: 4.5rem;
+    }
+}
+
+/* Safe area para iPhones com notch/dynamic island */
+@supports (padding-top: env(safe-area-inset-top)) {
+    .tela {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+}
+
+/* Landscape (caso ela vire o celular) */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    .titulo-principal {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+
+    .coracao-animado {
+        font-size: 2rem;
+    }
+
+    .btn-magico {
+        padding: 12px 30px;
+    }
+
+    .glass-card {
+        max-height: 85vh;
+        padding: 20px;
+        flex-direction: row;
+    }
+
+    .te-amo {
+        font-size: 3.5rem;
+    }
+}
